@@ -1,7 +1,7 @@
 {
   "name": "slay-error",
-  "version": "1.0.0",
   "description": "Standard, sane defaults for HTTP errors in slay apps. ",
+  "version": "1.0.0",
   "main": "middleware.js",
   "scripts": {
     "lint": "godaddy-js-style-lint *.js",
