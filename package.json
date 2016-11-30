@@ -1,0 +1,27 @@
+{
+  "name": "slay-error",
+  "version": "1.0.0",
+  "description": "Standard, sane defaults for HTTP errors in slay apps. ",
+  "main": "middleware.js",
+  "scripts": {
+    "lint": "godaddy-js-style-lint *.js",
+    "pretest": "npm run lint",
+    "test": "istanbul cover ./node_modules/.bin/_mocha test/*.test.js"
+  },
+  "author": "Charlie Robbins <crobbins@godaddy.com>",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com/godaddy/slay-error.git"
+  },
+  "keywords": [
+    "slay",
+    "error",
+    "middleware"
+  ],
+  "devDependencies": {
+    "assume": "^1.4.1",
+    "godaddy-style": "^3.1.6",
+    "istanbul": "^0.4.5",
+    "mocha": "^3.1.2"
+  }
+}
