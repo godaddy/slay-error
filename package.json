@@ -5,8 +5,7 @@
   "main": "middleware.js",
   "scripts": {
     "lint": "godaddy-js-style-lint *.js",
-    "pretest": "npm run lint",
-    "test": "istanbul cover ./node_modules/.bin/_mocha test/*.test.js"
+    "test": "npm run lint"
   },
   "author": "Charlie Robbins <crobbins@godaddy.com>",
   "repository": {
