@@ -1,5 +1,7 @@
 /* eslint max-statements: 0 */
 
+const { decycle } = require('json-decycle');
+
 module.exports = function (app, opts) {
   opts = opts || {};
 
@@ -24,7 +26,8 @@ module.exports = function (app, opts) {
       Object.keys(err).reduce((memo, prop) => {
         memo[prop] = err[prop];
         return memo;
-      }, {})
+      }, {}), 
+      decycle()
     );
 
     var result = { message: msg };
