@@ -26,7 +26,7 @@ module.exports = function (app, opts) {
       Object.keys(err).reduce((memo, prop) => {
         memo[prop] = err[prop];
         return memo;
-      }, {}), 
+      }, {}),
       decycle()
     );
 
@@ -45,7 +45,7 @@ module.exports = function (app, opts) {
       res.location(err.location);
     }
 
-    if (err.log !== false || !opts.disableLog) {
+    if (err.log !== false && !opts.disableLog) {
       app.log[err.level || 'error'](msg, meta);
     }
 

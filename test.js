@@ -57,4 +57,18 @@ describe('slay-error', function () {
       done();
     }
   });
+
+  it('skips logging if disableLog is true', done => {
+    const middleware = error(app, { disableLog: true });
+    const err = new Error('test');
+    res.json = assert;
+
+    middleware(err, req, res, next);
+    assume(next.callCount).equals(0);
+
+    function assert() {
+      assume(app.log.error.callCount).equals(0);
+      done();
+    }
+  });
 });
