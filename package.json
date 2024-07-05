@@ -20,6 +20,10 @@
     "type": "git",
     "url": "git@github.com/godaddy/slay-error.git"
   },
+  "homepage": "https://github.com/godaddy/slay-error#readme",
+  "bugs": {
+    "url": "https://github.com/godaddy/slay-error/issues"
+  },
   "keywords": [
     "slay",
     "error",
