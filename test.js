@@ -5,7 +5,7 @@ const error = require('./');
 describe('slay-error', function () {
   let app, req, res, next;
 
-  this.beforeEach(() => {
+  this.beforeEach(function () {
     app = {
       config: {
         get: function () { return 'test'; }
@@ -33,7 +33,7 @@ describe('slay-error', function () {
     assume(middleware.length).equals(4);
   });
 
-  it('handles circular references in metadata', done => {
+  it('handles circular references in metadata', function (done) {
     const middleware = error(app);
     const err = {
       response: {
@@ -58,7 +58,7 @@ describe('slay-error', function () {
     }
   });
 
-  it('skips logging if disableLog is true', done => {
+  it('skips logging if disableLog is true', function (done) {
     const middleware = error(app, { disableLog: true });
     const err = new Error('test');
     res.json = assert;

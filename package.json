@@ -7,15 +7,22 @@
     "index.js"
   ],
   "scripts": {
-    "lint": "eslint-godaddy *.js",
+    "lint": "eslint *.js",
     "posttest": "npm run lint",
-    "test": "nyc mocha test.js",
-    "report": "nyc report --reporter=lcov"
+    "test": "c8 mocha test.js",
+    "report": "c8 report --reporter=lcov"
   },
   "author": "Charlie Robbins <crobbins@godaddy.com>",
+  "maintainers": [
+    "Rick Markins <rmarkins@godaddy.com>"
+  ],
   "repository": {
     "type": "git",
     "url": "git@github.com/godaddy/slay-error.git"
+  },
+  "homepage": "https://github.com/godaddy/slay-error#readme",
+  "bugs": {
+    "url": "https://github.com/godaddy/slay-error/issues"
   },
   "keywords": [
     "slay",
@@ -25,13 +32,16 @@
   "license": "UNLICENSED",
   "devDependencies": {
     "assume": "^2.3.0",
+    "c8": "^10.1.2",
     "eslint": "^8.57.0",
     "eslint-config-godaddy": "^7.1.1",
-    "mocha": "^10.4.0",
-    "nyc": "^15.1.0",
-    "sinon": "^7.4.1"
+    "mocha": "^10.6.0",
+    "sinon": "^18.0.0"
   },
   "dependencies": {
-    "json-decycle": "^1.0.0"
+    "json-decycle": "^2.0.1"
+  },
+  "eslintConfig": {
+    "extends": "godaddy"
   }
 }
