@@ -39,7 +39,7 @@
     "sinon": "^18.0.0"
   },
   "dependencies": {
-    "json-decycle": "^2.0.1"
+    "json-decycle": "^4.0.0"
   },
   "eslintConfig": {
     "extends": "godaddy"
