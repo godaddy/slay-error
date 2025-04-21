@@ -1,3 +1,4 @@
+const { describe, it, beforeEach } = require('node:test');
 const assume = require('assume');
 const { spy, stub } = require('sinon');
 const error = require('./');
@@ -5,7 +6,7 @@ const error = require('./');
 describe('slay-error', function () {
   let app, req, res, next;
 
-  this.beforeEach(function () {
+  beforeEach(function () {
     app = {
       config: {
         get: function () { return 'test'; }
@@ -33,7 +34,7 @@ describe('slay-error', function () {
     assume(middleware.length).equals(4);
   });
 
-  it('handles circular references in metadata', function (done) {
+  it('handles circular references in metadata', async function () {
     const middleware = error(app);
     const err = {
       response: {
@@ -48,27 +49,35 @@ describe('slay-error', function () {
     };
     err.response.request = err.request;
     err.request.response = err.response;
-    res.json = assert;
+
+    // Replace callback assertion with a promise
+    const assertPromise = new Promise(resolve => {
+      res.json = resolve;
+    });
 
     middleware(err, req, res, next);
     assume(next.callCount).equals(0);
 
-    function assert() {
-      done();
-    }
+    // Wait for the assertion to be called
+    await assertPromise;
   });
 
-  it('skips logging if disableLog is true', function (done) {
+  it('skips logging if disableLog is true', async function () {
     const middleware = error(app, { disableLog: true });
     const err = new Error('test');
-    res.json = assert;
+
+    // Replace callback assertion with a promise
+    const assertPromise = new Promise(resolve => {
+      res.json = () => {
+        assume(app.log.error.callCount).equals(0);
+        resolve();
+      };
+    });
 
     middleware(err, req, res, next);
     assume(next.callCount).equals(0);
 
-    function assert() {
-      assume(app.log.error.callCount).equals(0);
-      done();
-    }
+    // Wait for the assertion to be called
+    await assertPromise;
   });
 });

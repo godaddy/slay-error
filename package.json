@@ -9,7 +9,7 @@
   "scripts": {
     "lint": "eslint *.js",
     "posttest": "npm run lint",
-    "test": "c8 mocha test.js",
+    "test": "c8 node --test test.js",
     "report": "c8 report --reporter=lcov"
   },
   "author": "Charlie Robbins <crobbins@godaddy.com>",
@@ -35,7 +35,6 @@
     "c8": "^10.1.2",
     "eslint": "^8.57.0",
     "eslint-config-godaddy": "^7.1.1",
-    "mocha": "^10.6.0",
     "sinon": "^18.0.0"
   },
   "dependencies": {
