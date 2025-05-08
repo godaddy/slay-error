@@ -1,6 +1,5 @@
-const { describe, it, beforeEach } = require('node:test');
-const assume = require('assume');
-const { spy, stub } = require('sinon');
+const { describe, it, beforeEach, mock } = require('node:test');
+const assert = require('node:assert');
 const error = require('./');
 
 describe('slay-error', function () {
@@ -12,26 +11,26 @@ describe('slay-error', function () {
         get: function () { return 'test'; }
       },
       log: {
-        info: function () {},
-        error: spy()
+        info: mock.fn(),
+        error: mock.fn()
       }
     };
     req = {};
     res = {
-      status: stub().returnsThis(),
-      json: spy()
+      status: mock.fn(function() { return this; }),
+      json: mock.fn()
     };
-    next = spy();
+    next = mock.fn();
   });
 
   it('is a function', function () {
-    assume(error).is.a('function');
+    assert.strictEqual(typeof error, 'function');
   });
 
   it('returns a function', function () {
     const middleware = error(app);
-    assume(middleware).is.a('function');
-    assume(middleware.length).equals(4);
+    assert.strictEqual(typeof middleware, 'function');
+    assert.strictEqual(middleware.length, 4);
   });
 
   it('handles circular references in metadata', async function () {
@@ -50,34 +49,15 @@ describe('slay-error', function () {
     err.response.request = err.request;
     err.request.response = err.response;
 
-    // Replace callback assertion with a promise
-    const assertPromise = new Promise(resolve => {
-      res.json = resolve;
-    });
-
     middleware(err, req, res, next);
-    assume(next.callCount).equals(0);
-
-    // Wait for the assertion to be called
-    await assertPromise;
+    assert.strictEqual(res.json.mock.calls.length, 1);
   });
 
   it('skips logging if disableLog is true', async function () {
     const middleware = error(app, { disableLog: true });
     const err = new Error('test');
 
-    // Replace callback assertion with a promise
-    const assertPromise = new Promise(resolve => {
-      res.json = () => {
-        assume(app.log.error.callCount).equals(0);
-        resolve();
-      };
-    });
-
     middleware(err, req, res, next);
-    assume(next.callCount).equals(0);
-
-    // Wait for the assertion to be called
-    await assertPromise;
+    assert.strictEqual(app.log.error.mock.calls.length, 0);
   });
 });

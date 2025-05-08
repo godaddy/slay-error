@@ -1,4 +1,3 @@
-/* eslint-disable max-statements */
 const { decycle } = require('json-decycle');
 
 module.exports = function (app, opts) {

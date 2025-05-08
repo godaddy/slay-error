@@ -31,16 +31,11 @@
   ],
   "license": "UNLICENSED",
   "devDependencies": {
-    "assume": "^2.3.0",
     "c8": "^10.1.2",
-    "eslint": "^8.57.0",
-    "eslint-config-godaddy": "^7.1.1",
-    "sinon": "^18.0.0"
+    "eslint": "^9.26.0",
+    "eslint-config-godaddy": "^8.0.2"
   },
   "dependencies": {
     "json-decycle": "^2.0.1"
-  },
-  "eslintConfig": {
-    "extends": "godaddy"
   }
 }
